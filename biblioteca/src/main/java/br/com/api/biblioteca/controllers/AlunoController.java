@@ -19,7 +19,7 @@ import br.com.api.biblioteca.entities.Aluno;
 import br.com.api.biblioteca.services.AlunoService;
 
 @RestController
-@RequestMapping("/aluno")
+@RequestMapping("/alunos")
 public class AlunoController {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class AlunoController {
 	}
 
 	// buscar por id recebendo por path
-	@GetMapping("/(id)")
+	@GetMapping("/{id}")
 	public ResponseEntity<Aluno> buscarAlunoPorId(@PathVariable Integer id) {
 		return new ResponseEntity<>(alunoService.buscarAlunoPorId(id), HttpStatus.OK);
 	}

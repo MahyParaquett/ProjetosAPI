@@ -3,6 +3,8 @@ package br.com.api.biblioteca.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,7 @@ public class Aluno {
 	@Column(name = "cidade")
 	private String cidade;
 	
+	@JsonManagedReference(value= "aluno-mng-ref")
 	@OneToMany(mappedBy = "aluno")
 	private List<Emprestimo> emprestimos;
 

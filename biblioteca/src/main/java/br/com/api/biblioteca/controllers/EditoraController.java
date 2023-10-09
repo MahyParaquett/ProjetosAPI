@@ -18,7 +18,7 @@ import br.com.api.biblioteca.entities.Editora;
 import br.com.api.biblioteca.services.EditoraService;
 
 @RestController
-@RequestMapping("/editora")
+@RequestMapping("/editoras")
 public class EditoraController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class EditoraController {
 	}
 
 	// buscar por id
-	@GetMapping("/(id)")
+	@GetMapping("/{id}")
 	public ResponseEntity<Editora> buscarEditoraPorId(@PathVariable Integer id) {
 		return new ResponseEntity<>(editoraService.buscarEditoraPorId(id), HttpStatus.OK);
 	}

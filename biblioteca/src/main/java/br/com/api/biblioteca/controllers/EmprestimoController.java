@@ -18,7 +18,7 @@ import br.com.api.biblioteca.entities.Emprestimo;
 import br.com.api.biblioteca.services.EmprestimoService;
 
 @RestController
-@RequestMapping("/emprestimo")
+@RequestMapping("/emprestimos")
 public class EmprestimoController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class EmprestimoController {
 	}
 
 	// buscar por id
-	@GetMapping("/(id)")
+	@GetMapping("/{id}")
 	public ResponseEntity<Emprestimo> buscarEmprestimoPorId(@PathVariable Integer id) {
 		return new ResponseEntity<>(emprestimoService.buscarEmprestimoPorId(id), HttpStatus.OK);
 	}

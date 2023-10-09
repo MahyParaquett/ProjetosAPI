@@ -18,7 +18,7 @@ import br.com.api.biblioteca.entities.Livro;
 import br.com.api.biblioteca.services.LivroService;
 
 @RestController
-@RequestMapping("/livro")
+@RequestMapping("/livros")
 public class LivroController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class LivroController {
 	}
 
 	// buscar por id
-	@GetMapping("/(id)")
+	@GetMapping("/{id}")
 	public ResponseEntity<Livro> buscarLivroPorId(@PathVariable Integer id) {
 		return new ResponseEntity<>(livroService.buscarLivroPorId(id), HttpStatus.OK);
 	}
