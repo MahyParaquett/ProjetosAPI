@@ -36,12 +36,30 @@ public class EditoraService {
 	}
 
 	// deletar um deteminado editora
-	public void deletarEditora(Editora editora) {
+	public Boolean deletarEditora(Editora editora) {
+		// Confere se o editora passado tem dados
+		if (editora == null) {
+			return false;
+		}
+		// Confere já que tem dados, vê se ta no Banco
+		Editora editoraExistente = buscarEditoraPorId(editora.getCodigoEditora());
+
+		// Se ele não tá no banco volta editora
+		if (editoraExistente == null) {
+			return false;
+		}
+
+		// Ele existe no banco e tem dados, então deleta.
 		editoraRep.delete(editora);
-		/*Editora confere = buscarEditoraPorId(editora.getNumeroMatriculaEditora());
-		If(confere==null){ editora deletado}
-		Else{editora continua existindo}
-		*/
+
+		// CONFERENCIA SE FOI DELETADO
+		Editora editoraContinuaExistindo = buscarEditoraPorId(editora.getCodigoEditora());
+
+		if (editoraContinuaExistindo == null) {
+			return true;
+		}
+		// Se não caiu em nenhuma das anteriores ele retorna falso (não apagou)
+		return false;
 
 	}
 

@@ -68,8 +68,13 @@ public class AlunoController {
 	// deletar um objeto
 	@DeleteMapping
 	public ResponseEntity<String> deletarAluno(@RequestBody Aluno aluno) {
-		alunoService.deletarAluno(aluno);
-		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		if(alunoService.deletarAluno(aluno)) {
+					return new 
+							ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		}else {
+			return new
+					ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

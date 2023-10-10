@@ -36,13 +36,32 @@ public class EmprestimoService {
 	}
 
 	// deletar um deteminado emprestimo
-	public void deletarEmprestimo(Emprestimo emprestimo) {
-		emprestimoRep.delete(emprestimo);
-		/*Emprestimo confere = buscarEmprestimoPorId(emprestimo.getNumeroMatriculaEmprestimo());
-		If(confere==null){ emprestimo deletado}
-		Else{emprestimo continua existindo}
-		*/
+	public Boolean deletarEmprestimo(Emprestimo emprestimo) {
+			// Confere se o emprestimo passado tem dados
+			if (emprestimo == null) {
+				return false;
+			}
+			// Confere já que tem dados, vê se ta no Banco
+			Emprestimo emprestimoExistente = buscarEmprestimoPorId(emprestimo.getCodigoEmprestimo());
 
-	}
+			// Se ele não tá no banco volta emprestimo
+			if (emprestimoExistente == null) {
+				return false;
+			}
+
+			// Ele existe no banco e tem dados, então deleta.
+			emprestimoRep.delete(emprestimo);
+
+			// CONFERENCIA SE FOI DELETADO
+			Emprestimo emprestimoContinuaExistindo = buscarEmprestimoPorId(emprestimo.getCodigoEmprestimo());
+
+			if (emprestimoContinuaExistindo == null) {
+				return true;
+			}
+			// Se não caiu em nenhuma das anteriores ele retorna falso (não apagou)
+			return false;
+
+		}
+
 
 }

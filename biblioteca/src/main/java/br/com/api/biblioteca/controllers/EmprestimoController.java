@@ -57,8 +57,12 @@ public class EmprestimoController {
 	// deletar um objeto
 	@DeleteMapping
 	public ResponseEntity<String> deletarEmprestimo(@RequestBody Emprestimo emprestimo) {
-		emprestimoService.deletarEmprestimo(emprestimo);
-		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		if(emprestimoService.deletarEmprestimo(emprestimo))
+			return new 
+					ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+else
+	return new
+			ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
 
 }

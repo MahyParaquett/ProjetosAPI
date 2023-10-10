@@ -57,8 +57,12 @@ public class LivroController {
 	// deletar um objeto
 	@DeleteMapping
 	public ResponseEntity<String> deletarLivro(@RequestBody Livro livro) {
-		livroService.deletarLivro(livro);
-		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		if(livroService.deletarLivro(livro))
+			return new 
+					ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+else
+	return new
+			ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
 
 }

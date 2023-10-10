@@ -55,8 +55,12 @@ public class EditoraController {
 	// deletar um objeto
 	@DeleteMapping
 	public ResponseEntity<String> deletarEditora(@RequestBody Editora editora) {
-		editoraService.deletarEditora(editora);
-		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		if(editoraService.deletarEditora(editora))
+			return new 
+					ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+else
+	return new
+			ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
 
 }

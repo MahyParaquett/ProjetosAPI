@@ -23,15 +23,14 @@ public class AlunoService {
 
 	// recuperar um aluno pela chave primária
 	public Aluno buscarAlunoPorId(Integer id) {
-		
-		//OPÇÃO 1
-		/*Optional<Aluno>alunoBanco = alunoRep.findById(id);
-		if(alunoBanco.isPresent())
-		return alunoBanco.get();
-		else
-		return null;*/
 
-		//OPÇÃO 2
+		// OPÇÃO 1
+		/*
+		 * Optional<Aluno>alunoBanco = alunoRep.findById(id); if(alunoBanco.isPresent())
+		 * return alunoBanco.get(); else return null;
+		 */
+
+		// OPÇÃO 2
 		return alunoRep.findById(id).orElse(null);
 	}
 
@@ -46,12 +45,30 @@ public class AlunoService {
 	}
 
 	// deletar um deteminado aluno
-	public void deletarAluno(Aluno aluno) {
+	public Boolean deletarAluno(Aluno aluno) {
+		// Confere se o aluno passado tem dados
+		if (aluno == null) {
+			return false;
+		}
+		// Confere já que tem dados, vê se ta no Banco
+		Aluno alunoExistente = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+
+		// Se ele não tá no banco volta aluno
+		if (alunoExistente == null) {
+			return false;
+		}
+
+		// Ele existe no banco e tem dados, então deleta.
 		alunoRep.delete(aluno);
-		/*Aluno confere = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
-		If(confere==null){ aluno deletado}
-		Else{aluno continua existindo}
-		*/
+
+		// CONFERENCIA SE FOI DELETADO
+		Aluno alunoContinuaExistindo = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+
+		if (alunoContinuaExistindo == null) {
+			return true;
+		}
+		// Se não caiu em nenhuma das anteriores ele retorna falso (não apagou)
+		return false;
 
 	}
 

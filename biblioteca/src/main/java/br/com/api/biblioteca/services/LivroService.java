@@ -36,13 +36,33 @@ public class LivroService {
 	}
 
 	// deletar um deteminado livro
-	public void deletarLivro(Livro livro) {
-		livroRep.delete(livro);
-		/*Livro confere = buscarLivroPorId(livro.getNumeroMatriculaLivro());
-		If(confere==null){ livro deletado}
-		Else{livro continua existindo}
-		*/
+	public Boolean deletarLivro(Livro livro) {
+			// Confere se o livro passado tem dados
+			if (livro == null) {
+				return false;
+			}
+			// Confere já que tem dados, vê se ta no Banco
+			Livro livroExistente = buscarLivroPorId(livro.getCodigoLivro());
 
-	}
+			// Se ele não tá no banco volta livro
+			if (livroExistente == null) {
+				return false;
+			}
+
+			// Ele existe no banco e tem dados, então deleta.
+			livroRep.delete(livro);
+
+			// CONFERENCIA SE FOI DELETADO
+			Livro livroContinuaExistindo = buscarLivroPorId(livro.getCodigoLivro());
+
+			if (livroContinuaExistindo == null) {
+				return true;
+			}
+			// Se não caiu em nenhuma das anteriores ele retorna falso (não apagou)
+			return false;
+
+		}
+
+		
 
 }
