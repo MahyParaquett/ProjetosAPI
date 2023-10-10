@@ -33,7 +33,11 @@ public class EditoraController {
 	// buscar por id
 	@GetMapping("/{id}")
 	public ResponseEntity<Editora> buscarEditoraPorId(@PathVariable Integer id) {
-		return new ResponseEntity<>(editoraService.buscarEditoraPorId(id), HttpStatus.OK);
+		Editora editora = editoraService.buscarEditoraPorId(id);
+		if (editora == null)
+			return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(editora, HttpStatus.OK);
 	}
 
 	// salvar um novo objeto

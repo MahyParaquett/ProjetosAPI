@@ -22,7 +22,7 @@ public class EditoraService {
 
 	// recuperar um editora pela chave primária
 	public Editora buscarEditoraPorId(Integer id) {
-		return editoraRep.findById(id).get();
+		return editoraRep.findById(id).orElse(null);
 	}
 
 	// salvar um novo editora

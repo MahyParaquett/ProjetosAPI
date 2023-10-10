@@ -22,7 +22,7 @@ public class EmprestimoService {
 
 	// recuperar um emprestimo pela chave primária
 	public Emprestimo buscarEmprestimoPorId(Integer id) {
-		return emprestimoRep.findById(id).get();
+		return emprestimoRep.findById(id).orElse(null);
 	}
 
 	// salvar um novo emprestimo

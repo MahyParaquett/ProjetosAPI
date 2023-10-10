@@ -1,6 +1,7 @@
 package br.com.api.biblioteca.services;
 
 import java.util.List;
+//import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,16 @@ public class AlunoService {
 
 	// recuperar um aluno pela chave primária
 	public Aluno buscarAlunoPorId(Integer id) {
-		return alunoRep.findById(id).get();
+		
+		//OPÇÃO 1
+		/*Optional<Aluno>alunoBanco = alunoRep.findById(id);
+		if(alunoBanco.isPresent())
+		return alunoBanco.get();
+		else
+		return null;*/
+
+		//OPÇÃO 2
+		return alunoRep.findById(id).orElse(null);
 	}
 
 	// salvar um novo aluno
