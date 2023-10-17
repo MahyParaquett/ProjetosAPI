@@ -15,8 +15,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,property = "numeroMatriculaAluno"
-		)
+		generator = ObjectIdGenerators.PropertyGenerator.class,
+		property = "numeroMatriculaAluno",
+		scope = Aluno.class
+)
+
 @Entity
 @Table(name = "aluno")
 public class Aluno {

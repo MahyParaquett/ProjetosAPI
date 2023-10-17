@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.biblioteca.dto.AlunoResumidoDTO;
 import br.com.api.biblioteca.entities.Aluno;
 import br.com.api.biblioteca.services.AlunoService;
 
@@ -30,6 +31,14 @@ public class AlunoController {
 	public ResponseEntity<List<Aluno>> listarAlunos() {
 		return new ResponseEntity<>(alunoService.listarAlunos(), HttpStatus.OK);
 	}
+	
+	//Listar todos DTO
+	@GetMapping("/resumido")
+	public ResponseEntity<List<AlunoResumidoDTO>> listarAlunosResumido() {
+		return new ResponseEntity<>(alunoService.listarAlunosResumidos(), HttpStatus.OK);
+	}
+	
+	
 
 	// buscar por id recebendo por path
 	@GetMapping("/{id}")
@@ -45,6 +54,20 @@ public class AlunoController {
 	}
 	// buscar por id recebendo por query
 	///alunos/porid?id=2
+	
+	//Usando dto
+	@GetMapping("/resumido/{id}")
+		public ResponseEntity<AlunoResumidoDTO> getAlunoResulmidoPorId
+		(@PathVariable Integer id) {
+			AlunoResumidoDTO alunoResDTO = alunoService.getAlunoResumidoPorId(id);
+			
+			if (alunoResDTO == null)
+				return new
+						ResponseEntity<>(alunoResDTO, HttpStatus.NOT_FOUND);
+			else
+				return new
+						ResponseEntity<>(alunoResDTO, HttpStatus.OK);
+		}
 	
 	@GetMapping("/porid")
 	public ResponseEntity<Aluno> buscarPorId(@RequestParam Integer id) {

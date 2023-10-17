@@ -17,7 +17,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "codigoEmprestimo"
+		property = "codigoEmprestimo",
+		scope = Emprestimo.class
 )
 @Entity
 @Table(name = "emprestimo")
