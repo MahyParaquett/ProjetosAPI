@@ -2,9 +2,11 @@ package br.com.api.biblioteca.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.biblioteca.dto.EditoraDTO;
 import br.com.api.biblioteca.entities.Editora;
 import br.com.api.biblioteca.repositories.EditoraRepository;
 
@@ -16,6 +18,8 @@ public class EditoraService {
 	@Autowired
 	EditoraRepository editoraRep;
 
+	private ModelMapper modelMapper = new ModelMapper();
+	
 	public List<Editora> listarEditoras() {
 		return editoraRep.findAll();
 	}
@@ -29,7 +33,25 @@ public class EditoraService {
 	public Editora salvarEditora(Editora editora) {
 		return editoraRep.save(editora);
 	}
-
+	// salvar um novo editoraDTO
+	public EditoraDTO salvarEditoraDto(EditoraDTO editoraDto) {
+		Editora editora = convertToEntity(editoraDto);
+		return convertToDto(editoraRep.save(editora));
+	}
+	
+	//convertendo para dto
+		private EditoraDTO convertToDto(Editora editora) {
+			EditoraDTO editoraDto = modelMapper.map(editora, EditoraDTO.class);
+			return editoraDto;
+		}
+		//dto para entidade
+		private Editora convertToEntity(EditoraDTO editoraDto){
+		    Editora editora = modelMapper.map(editoraDto, Editora.class);
+		    return editora;
+		}
+		
+		
+					
 	// atualizar um determinado editora
 	public Editora atualizarEditora(Editora editora) {
 		return editoraRep.save(editora);

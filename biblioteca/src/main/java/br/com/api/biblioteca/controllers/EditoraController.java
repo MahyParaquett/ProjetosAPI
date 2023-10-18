@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.biblioteca.dto.EditoraDTO;
 import br.com.api.biblioteca.entities.Editora;
 import br.com.api.biblioteca.services.EditoraService;
 
@@ -45,6 +46,13 @@ public class EditoraController {
 	public ResponseEntity<Editora> salvarEditora(@RequestBody Editora editora) {
 		return new ResponseEntity<>(editoraService.salvarEditora(editora), HttpStatus.CREATED);
 	}
+	
+	// salvar um novo objeto DTO
+		@PostMapping("/saveDto")
+		public ResponseEntity<EditoraDTO> salvarEditoraDTO(@RequestBody EditoraDTO editoraDTO) {
+			return new ResponseEntity<>(editoraService.salvarEditoraDto(editoraDTO), 
+					HttpStatus.CREATED);
+		}
 
 	// atualizar um objeto
 	@PutMapping
