@@ -1,10 +1,12 @@
 package br.com.api.biblioteca.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.biblioteca.dto.LivroResumidoDTO;
 import br.com.api.biblioteca.entities.Livro;
 import br.com.api.biblioteca.repositories.LivroRepository;
 
@@ -61,6 +63,26 @@ public class LivroService {
 			// Se não caiu em nenhuma das anteriores ele retorna falso (não apagou)
 			return false;
 
+		}
+	
+	// recuperar uma lista de livro resumido
+		public List<LivroResumidoDTO> listarLivroResumidos() {
+			List<Livro> listaLivros = livroRep.findAll();
+			List<LivroResumidoDTO> listaLivrosDTO = new ArrayList<>();
+
+			/* A cada interação o livro vai receber o conteudo do 
+			 livros(lista) na posição x
+			 */
+			for (Livro livro : listaLivros) {
+				LivroResumidoDTO livroResDTO = new LivroResumidoDTO();
+				livroResDTO.setCodigoLivro(livro.getCodigoLivro());
+				livroResDTO.setNomeLivro(livro.getNomeLivro());
+				livroResDTO.setDataLancamento(livro.getDataLancamento());
+				livroResDTO.setNomeEditora(livro.getEditora().getNome());
+				
+				listaLivrosDTO.add(livroResDTO);
+			}
+			return listaLivrosDTO ;
 		}
 
 		

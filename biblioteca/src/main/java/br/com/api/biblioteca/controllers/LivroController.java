@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.biblioteca.dto.LivroResumidoDTO;
 import br.com.api.biblioteca.entities.Livro;
 import br.com.api.biblioteca.services.LivroService;
 
@@ -65,4 +66,11 @@ else
 			ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
 
+	//relatorio-livro
+	@GetMapping("/relatorio-livro")
+	public ResponseEntity<List<LivroResumidoDTO>> listarLivroResumido() {
+		return new ResponseEntity<>(livroService.listarLivroResumidos(), HttpStatus.OK);
+	}
+	
+	
 }
