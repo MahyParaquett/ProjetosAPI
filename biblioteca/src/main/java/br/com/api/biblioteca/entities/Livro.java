@@ -116,8 +116,17 @@ public class Livro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Livro [codigoLivro=" + codigoLivro + ", nomeLivro=" + nomeLivro + ", autor=" + autor
+				+ ", dataLancamento=" + dataLancamento + ", codigoIsbn=" + codigoIsbn + ", editora=" + editora
+				+ ", emprestimos=" + emprestimos + ", getCodigoLivro()=" + getCodigoLivro() + ", getNomeLivro()="
+				+ getNomeLivro() + ", getDataLancamento()=" + getDataLancamento() + ", getEditora()=" + getEditora()
+				+ ", getCodigoIsbn()=" + getCodigoIsbn() + ", getEmprestimos()=" + getEmprestimos() + ", getAutor()="
+				+ getAutor() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 	
 	
 }

@@ -29,11 +29,11 @@ public class EditoraService {
 		return editoraRep.findById(id).orElse(null);
 	}
 
-	// salvar um novo editora
+	// salvar uma nova editora
 	public Editora salvarEditora(Editora editora) {
 		return editoraRep.save(editora);
 	}
-	// salvar um novo editoraDTO
+	// salvar uma nova editoraDTO
 	public EditoraDTO salvarEditoraDto(EditoraDTO editoraDto) {
 		Editora editora = convertToEntity(editoraDto);
 		return convertToDto(editoraRep.save(editora));
