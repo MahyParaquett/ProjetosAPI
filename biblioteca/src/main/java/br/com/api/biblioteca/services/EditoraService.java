@@ -1,14 +1,25 @@
 package br.com.api.biblioteca.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.api.biblioteca.dto.EditoraDTO;
+import br.com.api.biblioteca.dto.ReceitaWsDTO;
 import br.com.api.biblioteca.entities.Editora;
 import br.com.api.biblioteca.repositories.EditoraRepository;
+import io.jsonwebtoken.io.IOException;
 
 @Service
 public class EditoraService {
@@ -84,5 +95,32 @@ public class EditoraService {
 		return false;
 
 	}
+	
+	//Consultar cnpj
+	public ReceitaWsDTO consultaCnpj(String cnpj) {
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://receitaws.com.br/v1/cnpj/{cnpj}";
+		Map<String,String>params = new HashMap<String,String>();
+		params.put("cnpj", cnpj);
+		
+		ReceitaWsDTO receitaDto = restTemplate.getForObject
+				(uri, ReceitaWsDTO.class, params);
+		
+		return receitaDto;
+	}
 
+	//Salvar a foto
+	public Editora salvarEditoraComFoto(String strEditora, MultipartFile arqImg) throws JsonMappingException, JsonProcessingException {
+		Editora editora = new Editora();
+		try {
+			ObjectMapper objMp = new ObjectMapper()
+					.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			editora = objMp.readValue(strEditora,Editora.class);
+		}catch(IOException e) {
+			System.out.println("Erro ao converter a string Editora: " + e.toString());
+		} 
+		
+		return editoraRep.save(editora);
+	}
+	
 }

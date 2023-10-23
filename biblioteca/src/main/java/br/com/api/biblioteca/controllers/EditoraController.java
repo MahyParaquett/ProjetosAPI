@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import br.com.api.biblioteca.dto.EditoraDTO;
+import br.com.api.biblioteca.dto.ReceitaWsDTO;
 import br.com.api.biblioteca.entities.Editora;
 import br.com.api.biblioteca.services.EditoraService;
 
@@ -71,4 +77,18 @@ else
 			ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
 
+	//Consultar cnpj
+	@GetMapping("/consulta-cnpj/{cnpj}")
+	public ResponseEntity<ReceitaWsDTO> consultaCnpj(@PathVariable String cnpj) {
+		return new 
+				ResponseEntity<>(editoraService.consultaCnpj(cnpj), HttpStatus.OK);
+	}
+	
+	//img no banco
+	@PostMapping ("/comfoto")
+	public ResponseEntity<Editora> salvarComFoto(@RequestPart("edt")String strEditora,
+			@RequestPart("img")MultipartFile arqImg) throws JsonMappingException, JsonProcessingException {
+		return new ResponseEntity<>(editoraService.salvarEditoraComFoto(strEditora, arqImg), HttpStatus.CREATED);
+	}
+	
 }
